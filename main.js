@@ -6,6 +6,7 @@ import App from './App'
 import {$http} from '@escook/request-miniprogram'
 uni.$http = $http
 $http.baseUrl = 'https://www.uinav.com'
+// $http.baseUrl = 'https://api-ugo-web.itheima.net'
 //请求拦截器
 $http.beforeRequest = function(option){
   uni.showLoading({
