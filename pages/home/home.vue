@@ -1,5 +1,8 @@
 <template>
   <view>
+    <view class="search">
+       <my-search @gotoSearch="gotoSearch"></my-search>
+    </view>
     <!-- 轮播图 -->
   <swiper class="swiper" 	:indicator-dots="true" 	:autoplay="true" 	:interval='3000'	:circular="true">
     <swiper-item v-for="item in swiperList" :key="item.good_id" >
@@ -59,6 +62,7 @@
      this.getFloorList()
     },
     methods:{
+      //获取轮播图数据
       async getSwiperList(){
       const {data:res} = await uni.$http.get('/api/public/v1/home/swiperdata')
       // console.log('这是mesage',res.message)
@@ -68,6 +72,7 @@
           this.swiperList = [...res.message]
           // console.log('这是swiperList',this.swiperList)
       },
+     //获取轮播图下面的导航栏数据
       async getNavList(){
         const {data:res} = await uni.$http.get('/api/public/v1/home/catitems')
         // console.log('这是导航栏',res)
@@ -77,6 +82,7 @@
         this.navList = res.message
         // console.log('这是navlist',this.navList)
        },
+       //点击轮播图下面的导航栏的跳转处理事件
        navClickHandler(item){
          if(item.name==='分类'){
            uni.switchTab({
@@ -84,6 +90,7 @@
            })
          }
        },
+       //获取楼层的数据
        async getFloorList(){
         const {data:res} = await uni.$http.get('/api/public/v1/home/floordata')
          if(res.meta.status!==200){
@@ -101,6 +108,11 @@
          uni.navigateTo({
            url: this.FloorList[index].product_list[num].url
          });
+       },
+       gotoSearch(){
+         uni.navigateTo({
+           url:'/subpkg/search/search'
+         })
        }
     }
   
@@ -150,5 +162,10 @@
     }
   }
 }
-
+.search{
+  position: sticky;
+  top: 0;
+  //提高层级，防止滚动的时候被轮播图覆盖
+  z-index: 999;
+}
 </style>

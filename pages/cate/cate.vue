@@ -1,4 +1,7 @@
 <template>
+  <view>
+    <!-- 自定义搜索组件 -->
+      <my-search @gotoSearch="gotoSearch"></my-search>
   <view class="cateList">
     <!-- 左侧滑动分类区域 -->
     <scroll-view	scroll-y class="leftcate" :style="{height: wh
@@ -25,6 +28,7 @@
       
     </scroll-view>
   </view>
+  </view>
 </template>
 
 <script>
@@ -45,8 +49,8 @@
       uni.getSystemInfo().then((res) => {
         // 在Promise的回调中获取系统信息,不知道为什么res[0]是null,需要res[1]里面才有高度，不然列表是渲染不出来的
         const sysInfo = res[1];
-        this.wh = sysInfo.windowHeight;
-        console.log('这是屏幕高度',this.wh)
+        this.wh = sysInfo.windowHeight-50;
+        // console.log('这是屏幕高度',this.wh)
       }).catch((err) => {
         console.error('获取系统信息失败', err);
       })
@@ -59,8 +63,8 @@
         if(res.meta.status!==200) return uni.$showMsg()
         this.cateList = res.message
         this.cateLevel2 = this.cateList[0].children
-        console.log('这是cateList',this.cateList)
-        console.log('这是二级分类列表',this.cateLevel2)
+        // console.log('这是cateList',this.cateList)
+        // console.log('这是二级分类列表',this.cateLevel2)
       },
       activeChange(i){
         this.active=i
@@ -73,6 +77,11 @@
            url:'/subpkg/goods_list/goods_list?cid='+c3.cat_id
           })
       },
+      gotoSearch(){
+        uni.navigateTo({
+          url:'/subpkg/search/search'
+        })
+      }
     }
     
   }

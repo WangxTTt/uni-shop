@@ -45,6 +45,15 @@
                 }
                 
                 }
+                ,{
+                    "path" : "search/search",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "彩虹虹商城",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
             ]
    }
     
