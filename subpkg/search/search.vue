@@ -91,7 +91,8 @@
       uni.navigateTo({
         url:'/subpkg/goods_list/goods_list?query='+item
       })
-    }
+    },
+    
    
   },
   //追加后的历史记录要进行翻转将最新的记录排在第一位
