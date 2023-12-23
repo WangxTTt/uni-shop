@@ -55,6 +55,15 @@
                 }
                 
                 }
+                ,{
+                    "path" : "address/address",
+                    "style" :                                                                                    
+                {
+                    "navigationBarTitleText": "",
+                    "enablePullDownRefresh": false
+                }
+                
+                }
             ]
    }
     

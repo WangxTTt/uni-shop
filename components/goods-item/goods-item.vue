@@ -1,11 +1,19 @@
 <template>
   <view class="goodsitem">
+    <!-- <radio v-if="showRadio" :checked="goods.goods_state" color="#C00000" @click="radioClickHandler"></radio> -->
+    <!-- 勾选框的插槽 -->
+    <slot name="radio"></slot>
     <view class="goodsimgbox">
        <image :src="goods.goods_small_logo||defaultPic" class="goodsimg"></image>
     </view>
     <view class="goodstext">
       <view class="goodsname">{{goods.goods_name}}</view>
-      <view class="goodsprice">￥{{goods.goods_price|tofixed}}</view>
+      <view  class="goodsprice">
+        <view>￥{{goods.goods_price|tofixed}}</view>
+        <!-- 商品数量的插槽 -->
+        <slot name="goodscount" class="count"></slot>
+      </view>
+      
     </view>
   </view>
 </template>
@@ -22,6 +30,10 @@
       goods:{
         type:Object,
         default:{}
+      },
+      showRadio:{
+        type:Boolean,
+        default:false
       }
     },
     filters:{
@@ -29,7 +41,31 @@
       tofixed(num){
         return Number(num).toFixed(2)
       }
-    }
+    },
+    methods:{
+    //   radioCh(){
+    //     //radioChange
+    //    this.$emit('radio-change', {
+    //    // 商品的 Id
+    //    goods_id: this.goods.goods_id,
+    //    // 商品最新的勾选状态
+    //    goods_state: !this.goods.goods_state
+    //    })
+    // },
+    // radio 组件的点击事件处理函数
+   // radioClickHandler() {
+      //console.log("子组件点击之前的state",this.goods.goods_state)
+    // 通过 this.$emit() 触发外界通过 @ 绑定的 radio-change 事件，
+    // 同时把商品的 Id 和 勾选状态 作为参数传递给 radio-change 事件处理函数
+   // this.$emit('radio-change', {
+    // 商品的 Id
+    //goods_id: this.goods.goods_id,
+    // 商品最新的勾选状态
+    // goods_state: this.goods.goods_state?false:true
+    // })
+    // console.log('子组件点击之后:', this.goods.goods_state);
+    // }
+  },
   }
 </script>
 
@@ -59,6 +95,11 @@
         .goodsprice{
           font-size: 19px;
           color: #C00000;
+          display: flex;
+          justify-content: space-between;
+          .count{
+           
+          }
         }
     }
     
